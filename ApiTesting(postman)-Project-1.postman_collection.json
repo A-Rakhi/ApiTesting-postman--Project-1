@@ -1,0 +1,728 @@
+{
+	"info": {
+		"_postman_id": "09a179fe-435b-41bc-87d8-89036b334b1c",
+		"name": "ApiTesting(postman)-Project-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16502765"
+	},
+	"item": [
+		{
+			"name": "DemoTesting",
+			"item": [
+				{
+					"name": "GetRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//testting-status-code\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful POST request\", () => {\r",
+									"  pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+									"});\r",
+									"\r",
+									"//testting-headers\r",
+									"pm.test(\"Content-Type header is present\", () => {\r",
+									"  pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"//testting-headers-value\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//testting-response-time\r",
+									"pm.test(\"Response time is less than 200ms\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://reqres.in/api/users?page=2",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateInfo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jery\",\r\n    \"age\": \"20 years\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Per-baseUrl}}/api/users/",
+							"host": [
+								"{{Per-baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateInfo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ms. Jery\",\r\n    \"age\": \"20 years\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Per-baseUrl}}/api/users/{{id}}/",
+							"host": [
+								"{{Per-baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteInfo",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Per-baseUrl}}/api/users/{{id}}/",
+							"host": [
+								"{{Per-baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pre-Script-Test-Variables",
+			"item": [
+				{
+					"name": "Local-Global-PreScript",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//lOCAL VARIABLES\r",
+									"pm.variables.set(\"URL_Local\", \"https://reqres.in/api\");\r",
+									"\r",
+									"//Global variablesbYScripts\r",
+									"pm.globals.set(\"userid_globalScript\", \"1\")\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//printVariables\r",
+									"console.log(pm.variables.get(\"URL_Local\"));\r",
+									"console.log(pm.globals.get(\"userid_globalScript\"));\r",
+									"\r",
+									"\r",
+									"//Global variablesbYScripts\r",
+									"pm.globals.unset(\"userid_globalScript\")\r",
+									"\r",
+									"\r",
+									"// //Environment variablesbYScripts\r",
+									"// pm.environment.set(\"userid_environmentScript\")\r",
+									"\r",
+									"// //Collection variablesbYScripts\r",
+									"// pm.collectionVariables.set(\"userid_collectorScript\")\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_Local}}/users?page={{userid_globalScript}}",
+							"host": [
+								"{{URL_Local}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{userid_globalScript}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "collectionPreScript",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//lOCAL VARIABLES\r",
+									"pm.variables.set(\"URL_Local\", \"https://reqres.in/api\");\r",
+									"\r",
+									"//Collection variablesbYScripts\r",
+									"pm.collectionVariables.set(\"userid_collectorScript\", \"1\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.collectionVariables.get(\"userid_collectorScript\"));\r",
+									"\r",
+									"//Collection variablesbYScriptsNoseenAfterRequest\r",
+									" pm.collectionVariables.unset(\"userid_collectorScript\")\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_Local}}/users?page={{userid_collectorScript}}",
+							"host": [
+								"{{URL_Local}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{userid_collectorScript}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "environmentPreScript",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//lOCAL VARIABLES\r",
+									"pm.variables.set(\"URL_Local\", \"https://reqres.in/api\");\r",
+									"\r",
+									"//Environment variablesbYScriptsNoSeen\r",
+									"pm.environment.set(\"userid_environmentScript\", \"1\")\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"console.log(pm.environment.get(\"userid_environmentScript\"));\r",
+									"\r",
+									"//Environment variablesbYScriptsNoSeeninStore\r",
+									"pm.environment.unset(\"userid_environmentScript\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_Local}}/users?page={{userid_environmentScript}}",
+							"host": [
+								"{{URL_Local}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{userid_environmentScript}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddUsingCollection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n            \"email\": \"rey.bluth34@reqres.in\",\r\n            \"first_name\": \"MR. Rey\",\r\n            \"last_name\": \"Smith\",\r\n            \"avatar\": \"https://reqres.in/img/faces/1-image.jpg\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_Collector}}/api/users/",
+							"host": [
+								"{{URL_Collector}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUsingGlobal",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {        \r\n            \"email\": \"reyash.smith34@reqres.in\",\r\n            \"first_name\": \"MR. Reyash\",\r\n            \"last_name\": \"Smith\",\r\n\r\n              \"id\": \"247\"\r\n            \r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_Global}}/api/users/{{id}}/",
+							"host": [
+								"{{URL_Global}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{Per-baseUrl}}/api/users/{{id}}/",
+							"host": [
+								"{{Per-baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GoRestApi-Testing",
+			"item": [
+				{
+					"name": "CreateUser",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var random= Math.random().toString(36).substring(2);\r",
+									"\r",
+									"var useremail = \"user\"+random+\"@gmail.com\";\r",
+									"var username = \"user\"+random;\r",
+									"\r",
+									"pm.environment.set(\"email_env\", useremail);\r",
+									"pm.environment.set(\"name_env\", username);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData= JSON.parse(responseBody);\r",
+									"pm.environment.set(\"userid_env\", jsonData.id);\r",
+									"\r",
+									"//testting-status-code\r",
+									"pm.test(\"Status code is 201\", () => {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"{{name_env}}\",\r\n    \"gender\": \"male\",\r\n    \"email\" : \"{{email_env}}\",\r\n    \"status\" : \"Inactive\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserDetails",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"values of Json fields\", ()=>\r",
+									"{\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"userid_env\"));\r",
+									"    pm.expect(jsonData.name).to.eql(pm.environment.get(\"name_env\"));\r",
+									"    pm.expect(jsonData.email).to.eql(pm.environment.get(\"email_env\"));\r",
+									"});\r",
+									"\r",
+									"//testting-status-code\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/{{userid_env}}",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userid_env}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var random= Math.random().toString(36).substring(2);\r",
+									"\r",
+									"var useremail = \"user\"+random+\"@gmail.com\";\r",
+									"var username = \"user\"+random;\r",
+									"\r",
+									"pm.environment.set(\"email_env\", useremail);\r",
+									"pm.environment.set(\"name_env\", username);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//testting-status-code\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"{{name_env}}\", \r\n    \"email\" : \"{{email_env}}\",\r\n    \"status\" : \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/{{userid_env}}",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userid_env}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.unset(\"userid_env\");\r",
+									"pm.environment.unset(\"email_env\");\r",
+									"pm.environment.unset(\"name_env\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/{{userid_env}}",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userid_env}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "bca762a99ec9b9ad6b5b0f72cc267d5b4a096dd294cd812945aa1b55faff54ee",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "DataDrivenDemo",
+			"item": [
+				{
+					"name": "RegisterUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"tests[\"verify email\"] = responseBody.has(data.regemail);\r",
+									"tests[\"verify email\"] = responseBody.has(data[\"regemail\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{regemail}}\",\r\n    \"password\": \"{{regpass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Per-baseUrl}}/{{reg_endpoint}}",
+							"host": [
+								"{{Per-baseUrl}}"
+							],
+							"path": [
+								"{{reg_endpoint}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL_Collector",
+			"value": "https://reqres.in",
+			"type": "string"
+		}
+	]
+}

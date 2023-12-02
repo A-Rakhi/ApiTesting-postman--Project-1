@@ -1,0 +1,3 @@
+reg_endpoint,regemail,regpass
+api/register/qa,demo@req.in,pistol
+api/register/reg,regdemo@req.in,abcd

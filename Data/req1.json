@@ -1,0 +1,12 @@
+[
+   {
+      "reg_endpoint":"api/register/qa",
+      "regemail":"demo@req.in",
+      "regpass":"pistol12"
+   },
+   {
+      "reg_endpoint":"api/register/reg",
+      "regemail":"reqdemo@req.in",
+      "regpass":"abcd09"
+   }
+]
